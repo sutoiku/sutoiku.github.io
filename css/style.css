@@ -555,7 +555,7 @@ h2.slide-btm-text{
     border-color: #25CBF5;
 }
 .work-desc{
-    padding: 15px 0;
+    padding: 15px 20px;
 }
 .work-desc h4{
     margin-bottom: 5px;
@@ -564,6 +564,9 @@ h2.slide-btm-text{
     font-size: 12px;
     color: #999;
     font-weight: 400;
+}
+.work-detail h1{
+    margin-top: 20px;
 }
 
 /*———————————————————————————————————————————————————————————————————————————*/
