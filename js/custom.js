@@ -121,8 +121,11 @@ $('#grid').mixitup();
 
 /************parallax*********************/
 $(function() {
-    $.stellar({
-        horizontalScrolling: false
+    // Extra timeout to prevent parallax bug
+    setTimeout(function() {
+        $.stellar({
+            horizontalScrolling: false
+        });
     });
 });
 
