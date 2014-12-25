@@ -1253,3 +1253,7 @@ h3.heading-progress{
     font-size: 13px;
     font-weight: 700;
 }
+
+#mce-success-response{
+    margin-bottom: 40px;
+}
