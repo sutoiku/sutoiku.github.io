@@ -815,9 +815,6 @@ input[type="color"]:focus,
     margin-bottom: 20px;
     text-transform: uppercase;
 }
-.widget-title:first-letter{
-    border-bottom: 3px solid #25CBF5;
-}
 .footer-col p{
     color: #d5d5d5;
     margin-bottom: 30px;
