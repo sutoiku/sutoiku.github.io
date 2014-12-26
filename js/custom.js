@@ -1,7 +1,7 @@
 /*Theme    : Quick
  * Author  : Design_mylife
  * Version : V1.0
- * 
+ *
  */
 
 /* ==============================================
@@ -91,7 +91,7 @@ $(document).ready(function() {
         startDragging: true,
         autoPlay: true
     });
-    
+
     $("#work-slide").owlCarousel({
         // Most important owl features
         items: 1,
@@ -117,17 +117,6 @@ $('#grid').mixitup();
 /*=========================*/
 /*========on hover dropdown navigation====*/
 /*==========================*/
-
-
-/************parallax*********************/
-$(function() {
-    // Extra timeout to prevent parallax bug
-    setTimeout(function() {
-        $.stellar({
-            horizontalScrolling: false
-        });
-    });
-});
 
 
 /* ==============================================
@@ -175,13 +164,13 @@ $(function() {
 	      }
 	    }
 	  });
-	});	
-        
-        
+	});
+
+
 
 // Backstretch - Slider on Background
-								  
-			 
+
+
 $(".fullscreen").backstretch([
    "img/showcase-5.jpg",
    "img/showcase-2.jpg",
@@ -192,7 +181,7 @@ $(".fullscreen").backstretch([
 //back to top
 
 $(document).ready(function(){
-	
+
 	//Check to see if the window is top if not then display button
 	$(window).scroll(function(){
 		if ($(this).scrollTop() > 800) {
@@ -201,14 +190,18 @@ $(document).ready(function(){
 			$('.scrollToTop').fadeOut();
 		}
 	});
-	
+
 	//Click event to scroll to top
 	$('.scrollToTop').click(function(){
 		$('html, body').animate({scrollTop : 0},800);
 		return false;
 	});
-	
+
+    /************parallax*********************/
+    setTimeout(function() {
+        $.stellar({
+            horizontalScrolling: false
+        });
+    }, 300);
+
 });
-
-
-	
