@@ -202,6 +202,6 @@ $(document).ready(function(){
         $.stellar({
             horizontalScrolling: false
         });
-    }, 300);
+    }, 1000);
 
 });
