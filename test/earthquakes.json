@@ -1,0 +1,345 @@
+{
+    "name"        : "Earthquakes",
+    "id"          : "/earthquakes",
+    "version"     : "0.0.8",
+    "description" : "All recorded earthquakes with a magnitude of 6 or greater from 1900 to 2013.",
+    "author"      : "Ismael Chang Ghalimi @ghalimi",
+    "license"     : "MIT",
+    "sheets"      : [
+        {
+            "name" : "Recordings",
+            "id"   : "recordings",
+            "type" : "data",
+            "link" : null,
+            "spec" : {
+                "template" : null,
+                "columns"  : [
+                    {
+                        "name"     : "ID",
+                        "id"       : "id",
+                        "datatype" : "identifier",
+                        "typology" : "nominal",
+                        "options"  : { "size" : 32 }
+                    },
+                    {
+                        "name"     : "Network",
+                        "id"       : "network",
+                        "datatype" : "category",
+                        "typology" : "nominal",
+                        "options"  : {
+                            "categories" : [
+                                { "name" : "Atlas",      "id" : "atlas"      },
+                                { "name" : "Centennial", "id" : "centennial" },
+                                { "name" : "NC",         "id" : "nc"         },
+                                { "name" : "Official",   "id" : "official"   },
+                                { "name" : "PDE",        "id" : "pde"        },
+                                { "name" : "US",         "id" : "us"         }
+                            ]
+                        }
+                    },
+                    {
+                        "name"     : "Country",
+                        "id"       : "country",
+                        "datatype" : "string",
+                        "typology" : "nominal",
+                        "options"  : { "size" : 64 }
+                    },
+                    {
+                        "name"     : "Place",
+                        "id"       : "place",
+                        "datatype" : "string",
+                        "typology" : "nominal",
+                        "options"  : { "size" : 64 }
+                    },
+                    {
+                        "name"     : "Timestamp",
+                        "id"       : "timestamp",
+                        "datatype" : "timestamp",
+                        "typology" : "incremental"
+                    },
+                    {
+                        "name"     : "Date",
+                        "id"       : "date",
+                        "datatype" : "date",
+                        "typology" : "incremental",
+                        "options"  : { "format" : "%m/%d/%Y" }
+                    },
+                    {
+                        "name"     : "Time",
+                        "id"       : "time",
+                        "datatype" : "time",
+                        "typology" : "sectorial"
+                    },
+                    {
+                        "name"     : "Updated",
+                        "id"       : "updated",
+                        "datatype" : "timestamp",
+                        "typology" : "incremental"
+                    },
+                    {
+                        "name"     : "Latitude",
+                        "id"       : "latitude",
+                        "datatype" : "float",
+                        "typology" : "directional"
+                    },
+                    {
+                        "name"     : "Longitude",
+                        "id"       : "longitude",
+                        "datatype" : "float",
+                        "typology" : "directional"
+                    },
+                    {
+                        "name"     : "Depth",
+                        "id"       : "depth",
+                        "datatype" : "float",
+                        "typology" : "intensive"
+                    },
+                    {
+                        "name"     : "Magnitude",
+                        "id"       : "magnitude",
+                        "datatype" : "float",
+                        "typology" : "intensive"
+                    },
+                    {
+                        "name"     : "Type",
+                        "id"       : "type",
+                        "datatype" : "category",
+                        "typology" : "nominal",
+                        "options"  : {
+                            "categories" : [
+                                { "id" : "mb"  },
+                                { "id" : "mj"  },
+                                { "id" : "ms"  },
+                                { "id" : "mt"  },
+                                { "id" : "mw"  },
+                                { "id" : "mwb" },
+                                { "id" : "mwc" },
+                                { "id" : "mwp" },
+                                { "id" : "mwr" },
+                                { "id" : "mww" },
+                                { "id" : "uk"  }
+                            ]
+                        }
+                    },
+                    {
+                        "name"     : "Reports",
+                        "id"       : "reports",
+                        "datatype" : "integer",
+                        "typology" : "cardinal"
+                    },
+                    {
+                        "name"     : "Gap",
+                        "id"       : "gap",
+                        "datatype" : "float",
+                        "typology" : "directional"
+                    },
+                    {
+                        "name"     : "Distance",
+                        "id"       : "distance",
+                        "datatype" : "float",
+                        "typology" : "intensive"
+                    },
+                    {
+                        "name"     : "RMS",
+                        "id"       : "rms",
+                        "datatype" : "float",
+                        "typology" : "intensive"
+                    }
+                ],
+                "sources" : ["https://raw.githubusercontent.com/sutoiku/shiny/master/test/earthquakes.csv"],
+                "filters" : [
+                    {
+                        "name"   : "Recent Earthquakes",
+                        "id"     : "recent",
+                        "facets" : [
+                            {
+                                "column" : "date",
+                                "rules"  : [{ "operator" : ">", "value" : "2012-03-31" }]
+                            }
+                        ]
+                    }
+                ],
+                "pipelines" : [
+                    {
+                        "name"       : "Network Analysis",
+                        "id"         : "analysis",
+                        "parameters" : [
+                            {
+                                "name"     : "Equator",
+                                "id"       : "equator",
+                                "datatype" : "float",
+                                "typology" : "directional",
+                                "default"  : 0
+                            }
+                        ],
+                        "transforms" : [
+                            {
+                                "id"   : "hemisphere",
+                                "type" : "formula",
+                                "spec" : {
+                                    "name"     : "Hemisphere",
+                                    "id"       : "hemisphere",
+                                    "datatype" : "category",
+                                    "typology" : "nominal",
+                                    "options"  : {
+                                        "categories" : [
+                                            { "name" : "North", "id" : "north" },
+                                            { "name" : "South", "id" : "south" }
+                                        ]
+                                    },
+                                    "formula" : "IF(d.latitude >= equator, 'north', 'south')"
+                                },
+                                "blueprint" : null
+                            },
+                            {
+                                "id"   : "pivot",
+                                "type" : "pivot",
+                                "spec" : {
+                                    "dimensions" : {
+                                        "cols" : ["network", "hemisphere"],
+                                        "rows" : []
+                                    },
+                                    "measures" : [
+                                        {
+                                            "column"  : "magnitude",
+                                            "summary" : "average",
+                                            "format"  : { "background" : null, "text" : null, "value" : ",.1f", "css" : null }
+                                        }
+                                    ]
+                                },
+                                "blueprint" : {
+                                    "visual"      : "bar",
+                                    "dimensions"  : {
+                                        "columns" : {
+                                            "visualized" : {
+                                                "variable" : "network",
+                                                "axis"     : "horizontal",
+                                                "stripes"  : { "variable" : "hemisphere" }
+                                            }
+                                        }
+                                    },
+                                    "measures" : [
+                                        {
+                                            "variable" : "average_magnitude",
+                                            "axis"     : "height"
+                                        }
+                                    ],
+                                    "options" : {
+                                        "description" : { "html" : "<strong>Description</strong><br>Hemisphere computed with <code>IF(d.latitude >= equator, 'north', 'south')</code>" },
+                                        "note"        : { "html" : "<strong>Source:</strong> USGS (United States Geological Survey)" }
+                                    }
+                                }
+                            }
+                        ],
+                    },
+                    {
+                        "name"       : "Magnitude Drop",
+                        "id"         : "drop",
+                        "parameters" : [],
+                        "transforms" : [
+                            {
+                                "id"   : "year",
+                                "type" : "formula",
+                                "spec" : {
+                                    "name"     : "Year",
+                                    "id"       : "year",
+                                    "datatype" : "integer",
+                                    "typology" : "incremental",
+                                    "formula"  : "LEFT(d.timestamp, 4)"
+                                },
+                                "blueprint" : null
+                            },
+                            {
+                                "id"   : "pivot",
+                                "type" : "pivot",
+                                "spec" : {
+                                    "dimensions" : {
+                                        "cols" : ["year"],
+                                        "rows" : []
+                                    },
+                                    "measures" : [
+                                        {
+                                            "column"  : "magnitude",
+                                            "summary" : "average"
+                                        }
+                                    ]
+                                },
+                                "blueprint" : {
+                                    "visual"      : "line",
+                                    "dimensions"  : {
+                                        "columns" : {
+                                            "visualized" : {
+                                                "variable" : "year",
+                                                "axis"     : "horizontal",
+                                                "scale"    : "linear",
+                                                "format"   : "d",
+                                                "values"   : [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]
+                                            }
+                                        }
+                                    },
+                                    "measures" : [
+                                        {
+                                            "variable" : "average_magnitude",
+                                            "axis"     : "vertical",
+                                            "values"   : [6, 7, 8]
+                                        }
+                                    ],
+                                    "options" : {
+                                        "description" : {
+                                            "hide" : false,
+                                            "html" : "<strong>Description</strong><br>Year computed with <code>LEFT(d.timestamp, 4)</code>"
+                                        },
+                                        "note" : {
+                                            "html" : "<strong>Source:</strong> USGS (United States Geological Survey)"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "Notebook",
+            "id"   : "notebook",
+            "type" : "notebook",
+            "link" : null,
+            "spec" : {
+                "template" : null,
+                "blocks" : [
+                    {
+                        "name"      : "Major Earthquakes from 2012 to 2014",
+                        "id"        : "intro",
+                        "type"      : "html",
+                        "code"      : "All recorded earthquakes with a magnitude of 6 or greater from 1900 to 2013 via the <a href='http://earthquake.usgs.gov/earthquakes/search/'>United States Geological Survey</a>. The dataset includes the method used to calculate the preferred magnitude for the event (Type), the total number of seismic stations which reported arrival times for this earthquake (Reports), the azimuthal gap (Gap), the horizontal distance from the epicenter to the nearest station (Distance), and the root-mean-square travel time residual (RMS).",
+                        "collapsed" : true
+                    },
+                    {
+                        "name"      : "Bar Chart of Average Magnitude by Network",
+                        "id"        : "bar",
+                        "type"      : "javascript",
+                        "code"      : "PLOT({ sheet : 'recordings', pipeline : 'analysis' })",
+                        "collapsed" : false
+                    },
+                    {
+                        "name"      : "Line Chart of Average Magnitude by Year",
+                        "id"        : "line",
+                        "type"      : "javascript",
+                        "code"      : "PLOT('recordings/drop')",
+                        "collapsed" : false
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "Dashboard",
+            "id"   : "dashboard",
+            "type" : "dashboard",
+            "link" : null,
+            "spec" : {
+                "template" : null
+            }
+        }
+    ]
+}
